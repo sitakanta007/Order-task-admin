@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 
 class Coupon(models.Model):
@@ -7,6 +8,7 @@ class Coupon(models.Model):
         ('hybrid', 'Hybrid'),
     )
 
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     code = models.CharField(max_length=50, unique=True)
     type = models.CharField(max_length=20, choices=COUPON_TYPES)
     discount_percent = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
