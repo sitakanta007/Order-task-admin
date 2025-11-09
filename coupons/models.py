@@ -1,5 +1,7 @@
 import uuid
 from django.db import models
+from customers.models import Customer
+from orders.models import Order
 
 class Coupon(models.Model):
     COUPON_TYPES = (
@@ -23,9 +25,9 @@ class Coupon(models.Model):
 
 
 class UserCoupon(models.Model):
-    user_id = models.IntegerField()
+    user = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
     coupon = models.ForeignKey(Coupon, on_delete=models.CASCADE)
-    order_id = models.IntegerField()
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
     used_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
